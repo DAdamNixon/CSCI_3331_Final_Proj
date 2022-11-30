@@ -13,17 +13,18 @@ public class MainPage extends BorderPane {
     private Label lblSearch;
     private HBox searchBox;
     private Button btnSearch;
+    private Label lblPad;
 
     public MainPage() {
-
+        this.lblPad = new Label("   ");
         this.search = new TextField();
         this.search.setPromptText("Keywords...");
         this.lblSearch = new Label("Search: ");
         this.searchBox = new HBox();
         ImageView image = new ImageView(new Image("searchGlass.png"));
         image.setPreserveRatio(true);
-        image.setFitHeight(10);
-        image.setFitWidth(10);
+        image.setFitHeight(11);
+        image.setFitWidth(11);
         this.btnSearch = new Button("", image);
         setLayout();
     }
@@ -33,10 +34,8 @@ public class MainPage extends BorderPane {
     }
 
     private void setLayout() {
-        this.btnSearch.setLayoutX(this.search.getLayoutX() + 20);
-        this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
+        this.searchBox.getChildren().addAll(lblSearch, search, lblPad, btnSearch);
         this.setTop(searchBox);
         this.searchBox.setAlignment(Pos.CENTER);
-
     }
 }
