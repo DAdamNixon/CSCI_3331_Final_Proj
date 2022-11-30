@@ -1,15 +1,15 @@
 public abstract class Merchandise {
-    
-    public int itemNumber;
 
-    public float price;
+    protected int itemNumber;
 
-	public int inStock;
+    protected float price;
 
-    public String brandName;
+    protected int inStock;
 
-    public String itemName;
+    protected String brandName;
 
-    public boolean taxable;
-    
+    protected String itemName;
+
+    protected boolean taxable;
+
 }

@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Store extends Application {
@@ -13,22 +12,22 @@ public class Store extends Application {
 	Scene main;
 	Scene cart;
 	Scene login;
-    InventoryController inventory;
-	HashMap<String,String> users;
+	InventoryController inventory;
+	HashMap<String, String> users;
 	User currentUser;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 		this.users = new HashMap<>();
 		loadUserBase();
 		this.stage = primaryStage;
 		this.login = new Scene(new LoginPage(this), 500, 500);
-		this.main = new Scene(new BorderPane(), 800, 800);
-        primaryStage.setScene(login);
+		this.main = new Scene(new MainPage(), 800, 800);
+		primaryStage.setScene(login);
 		primaryStage.show();
-    }
+	}
 
-    private void loadUserBase() {
+	private void loadUserBase() {
 		try (Scanner input = new Scanner(new File("./src/Users.csv"))) {
 			String[] line;
 			while (input.hasNextLine()) {
@@ -39,12 +38,12 @@ public class Store extends Application {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void main(String[] args) throws Exception {
-        launch(args);
-    }
+		launch(args);
+	}
 
 	public void loginAttempt(String username, String password) {
 		if (password.equals(users.get(username))) {

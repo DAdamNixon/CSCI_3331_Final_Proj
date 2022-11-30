@@ -7,18 +7,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class LoginPage extends BorderPane {
-	
-	Store mainStore;
-	TextField username;
-	TextField password;
-	Button btnLogin;
-	Button btnQuit;
+
+	private Store mainStore;
+	private TextField username;
+	private TextField password;
+	private Button btnLogin;
+	private Button btnQuit;
 
 	LoginPage(Store main) {
 
 		this.mainStore = main;
 		this.username = new TextField();
-		this.password =new TextField();
+		this.password = new TextField();
 		this.btnLogin = new Button("Login");
 		this.btnQuit = new Button("Quit");
 		GridPane gp = new GridPane();
