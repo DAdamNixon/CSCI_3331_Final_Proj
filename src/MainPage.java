@@ -1,3 +1,4 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,14 +14,13 @@ public class MainPage extends BorderPane {
     private Label lblSearch;
     private HBox searchBox;
     private Button btnSearch;
-    private Label lblPad;
+    private ItemView view = new ItemView(this);
 
     public MainPage() {
-        this.lblPad = new Label("   ");
+        this.searchBox = new HBox();
         this.search = new TextField();
         this.search.setPromptText("Keywords...");
         this.lblSearch = new Label("Search: ");
-        this.searchBox = new HBox();
         ImageView image = new ImageView(new Image("searchGlass.png"));
         image.setPreserveRatio(true);
         image.setFitHeight(11);
@@ -34,8 +34,12 @@ public class MainPage extends BorderPane {
     }
 
     private void setLayout() {
-        this.searchBox.getChildren().addAll(lblSearch, search, lblPad, btnSearch);
+        this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
+        this.searchBox.setAlignment(Pos.CENTER_RIGHT);
         this.setTop(searchBox);
         this.searchBox.setAlignment(Pos.CENTER);
+        this.searchBox.setPadding(new Insets(15, 12, 15, 12));
+        this.searchBox.setSpacing(10);
+
     }
 }
