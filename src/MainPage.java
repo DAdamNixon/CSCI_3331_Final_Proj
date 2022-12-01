@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class MainPage extends BorderPane {
 
+	private InventoryController invCont;
     private TextField search;
     private Label lblSearch;
     private HBox searchBox;
@@ -17,6 +18,7 @@ public class MainPage extends BorderPane {
     private ItemView view = new ItemView(this);
 
     public MainPage() {
+		this.invCont = new InventoryController("inventory.csv");
         this.searchBox = new HBox();
         this.search = new TextField();
         this.search.setPromptText("Keywords...");
@@ -30,13 +32,15 @@ public class MainPage extends BorderPane {
             view.search();
         });
         setLayout();
-        view.addItem(new GroceryItem("Flour", 2.96f));
-        view.makeCards();
     }
 
     public String getSearchText() {
         return search.getText();
     }
+
+	public InventoryController getInventory() {
+		return this.invCont;
+	}
 
     private void setLayout() {
         this.setCenter(view);

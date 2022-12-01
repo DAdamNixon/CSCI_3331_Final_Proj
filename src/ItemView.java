@@ -1,11 +1,11 @@
-import java.util.LinkedList;
+import java.util.Collection;
 import javafx.geometry.Pos;
 import javafx.scene.layout.FlowPane;
 
 public class ItemView extends FlowPane {
 
     // List of items related to the current search query
-    private LinkedList<Merchandise> items;
+    private Collection<Merchandise> items;
     SearchController searching;
     MainPage mainPage;
 
@@ -13,8 +13,9 @@ public class ItemView extends FlowPane {
         mainPage = main;
         main.setCenter(this);
         this.setAlignment(Pos.CENTER);
-        this.items = new LinkedList<>();
+        this.items = main.getInventory().values();
         searching = new SearchController();
+		makeCards();
     }
 
     // How are we going to display items from search?
@@ -26,14 +27,15 @@ public class ItemView extends FlowPane {
         this.items.remove(item);
     }
 
-    public void makeCards() {
-        for (Merchandise merchandise : items) {
+    private void makeCards() {
+        for (Merchandise merchandise : this.items) {
             getChildren().add(new CardBuilder(merchandise).build());
         }
     }
 
     public void search() {
-        for (Merchandise item : items) {
+		getChildren().clear();
+        for (Merchandise item : this.items) {
             if (searching.parse(this.mainPage.getSearchText(), item.toString())) {
                 getChildren().add(new CardBuilder(item).build());
             }
