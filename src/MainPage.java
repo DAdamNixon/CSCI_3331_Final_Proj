@@ -15,7 +15,7 @@ public class MainPage extends BorderPane {
     private Label lblSearch;
     private HBox searchBox;
     private Button btnSearch;
-    private ItemView view = new ItemView(this);
+    private ItemView view;
 
     public MainPage() {
 		this.invCont = new InventoryController("inventory.csv");
@@ -28,8 +28,9 @@ public class MainPage extends BorderPane {
         image.setFitHeight(11);
         image.setFitWidth(11);
         this.btnSearch = new Button("", image);
+        view = new ItemView(this);
         btnSearch.setOnMouseClicked(e -> {
-            view.search();
+            view.search(this.search.getText());
         });
         setLayout();
     }

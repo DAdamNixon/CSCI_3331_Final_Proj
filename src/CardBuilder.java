@@ -20,12 +20,9 @@ public class CardBuilder implements Builder<Region> {
         card.setMinWidth(180);
         card.getChildren().addAll(
                 new Label(model.getItemName()),
-                new Label(Double.toString(model.getPrice())));
+                new Label(String.format("%.2f", model.getPrice())));
         return card;
     }
 
-    @Override
-    public String toString() {
-        return this.model.getItemName() + "," + this.model.getPrice();
-    }
+    
 }

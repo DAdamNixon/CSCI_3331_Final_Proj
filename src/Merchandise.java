@@ -20,4 +20,8 @@ public abstract class Merchandise {
         return this.price;
     }
 
+    @Override
+    public String toString() {
+        return this.getItemName() + "," + this.getPrice();
+    }
 }

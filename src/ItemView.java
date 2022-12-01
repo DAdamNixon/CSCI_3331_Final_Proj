@@ -28,16 +28,22 @@ public class ItemView extends FlowPane {
     }
 
     private void makeCards() {
+        getChildren().clear();
         for (Merchandise merchandise : this.items) {
             getChildren().add(new CardBuilder(merchandise).build());
         }
     }
 
-    public void search() {
-		getChildren().clear();
-        for (Merchandise item : this.items) {
-            if (searching.parse(this.mainPage.getSearchText(), item.toString())) {
-                getChildren().add(new CardBuilder(item).build());
+    public void search(String searchTerms) {
+        if (searchTerms.equals("")) {
+            makeCards();
+        }
+        else {
+            getChildren().clear();
+            for (Merchandise item : this.items) {
+                if (searching.parse(searchTerms, item.toString())) {
+                    getChildren().add(new CardBuilder(item).build());
+                }
             }
         }
     }
