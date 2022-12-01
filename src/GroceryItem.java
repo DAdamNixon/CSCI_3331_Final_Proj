@@ -7,4 +7,11 @@ public class GroceryItem extends Merchandise {
     public boolean wic;
 
     public boolean foodStamps;
+
+    public GroceryItem(){}
+    
+    public GroceryItem(String item, float price) {
+        this.itemName = item;
+        this.price = price;
+    }
 }

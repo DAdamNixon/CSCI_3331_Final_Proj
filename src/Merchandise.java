@@ -12,4 +12,12 @@ public abstract class Merchandise {
 
     protected boolean taxable;
 
+    public final String getItemName(){
+        return this.itemName;
+    }
+
+    public final double getPrice() {
+        return this.price;
+    }
+
 }

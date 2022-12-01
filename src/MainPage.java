@@ -27,13 +27,16 @@ public class MainPage extends BorderPane {
         image.setFitWidth(11);
         this.btnSearch = new Button("", image);
         setLayout();
+        view.addItem(new GroceryItem("Flour", 2.96f));
+        view.makeCards();
     }
-
+    
     public String getSearchText() {
         return search.getText();
     }
-
+    
     private void setLayout() {
+        this.setCenter(view);
         this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
         this.searchBox.setAlignment(Pos.CENTER_RIGHT);
         this.setTop(searchBox);

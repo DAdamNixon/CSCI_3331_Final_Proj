@@ -7,6 +7,7 @@ public class ItemView extends FlowPane {
     // List of items related to the current search query
     private LinkedList<Merchandise> items;
 
+
     public ItemView(MainPage main) {
         main.setCenter(this);
         this.setAlignment(Pos.CENTER);
@@ -20,5 +21,11 @@ public class ItemView extends FlowPane {
 
     public void removeItem(Merchandise item) {
         this.items.remove(item);
+    }
+
+    public void makeCards(){
+        for (Merchandise merchandise : items) {
+            getChildren().add(new CardBuilder(merchandise).build());
+        }
     }
 }
