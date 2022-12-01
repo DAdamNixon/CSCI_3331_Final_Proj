@@ -6,12 +6,15 @@ public class ItemView extends FlowPane {
 
     // List of items related to the current search query
     private LinkedList<Merchandise> items;
-
+    SearchController searching;
+    MainPage mainPage;
 
     public ItemView(MainPage main) {
+        mainPage = main;
         main.setCenter(this);
         this.setAlignment(Pos.CENTER);
         this.items = new LinkedList<>();
+        searching = new SearchController();
     }
 
     // How are we going to display items from search?
@@ -23,9 +26,17 @@ public class ItemView extends FlowPane {
         this.items.remove(item);
     }
 
-    public void makeCards(){
+    public void makeCards() {
         for (Merchandise merchandise : items) {
             getChildren().add(new CardBuilder(merchandise).build());
+        }
+    }
+
+    public void search() {
+        for (Merchandise item : items) {
+            if (searching.parse(this.mainPage.getSearchText(), item.toString())) {
+                getChildren().add(new CardBuilder(item).build());
+            }
         }
     }
 }

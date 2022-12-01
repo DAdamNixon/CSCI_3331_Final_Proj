@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 
 public class CardBuilder implements Builder<Region> {
-    
+
     Merchandise model;
 
     public CardBuilder(Merchandise model) {
@@ -19,9 +19,13 @@ public class CardBuilder implements Builder<Region> {
         card.setMinHeight(180);
         card.setMinWidth(180);
         card.getChildren().addAll(
-            new Label(model.getItemName()),
-            new Label(Double.toString(model.getPrice()))
-        );
+                new Label(model.getItemName()),
+                new Label(Double.toString(model.getPrice())));
         return card;
+    }
+
+    @Override
+    public String toString() {
+        return this.model.getItemName() + "," + this.model.getPrice();
     }
 }
