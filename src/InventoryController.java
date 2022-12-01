@@ -26,16 +26,16 @@ public class InventoryController {
 				else{
 					switch(merchandiseType){
 						case 1:
-						inventory.put(Integer.valueOf(line[2]), new GroceryItem(line[0], Float.parseFloat(line[1])));
-						break;
+							inventory.put(Integer.valueOf(line[2]), new GroceryItem(line[0], Float.parseFloat(line[1])));
+							break;
 						case 2:
-						inventory.put(Integer.valueOf(line[2]), new AutomotiveItem(line[0], Float.parseFloat(line[1])));
-						break;
+							inventory.put(Integer.valueOf(line[2]), new AutomotiveItem(line[0], Float.parseFloat(line[1])));
+							break;
 						case 3:
-						inventory.put(Integer.valueOf(line[3]), new MeatItem(line[0], Float.parseFloat(line[1]), Float.parseFloat(line[2])));
-						break;
+							inventory.put(Integer.valueOf(line[3]), new MeatItem(line[0], Float.parseFloat(line[1]), Float.parseFloat(line[2])));
+							break;
 						default:
-						break;
+							break;
 					}
 				}
 			}
