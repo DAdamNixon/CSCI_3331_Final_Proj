@@ -27,7 +27,7 @@ public class MainPage extends BorderPane {
         this.search = new TextField();
         this.search.setPromptText("Keywords...");
         this.lblSearch = new Label("Search: ");
-        ImageView image = new ImageView(new Image("searchGlass.png"));
+        ImageView image = new ImageView("./searchGlass.png");
         image.setPreserveRatio(true);
         image.setFitHeight(11);
         image.setFitWidth(11);

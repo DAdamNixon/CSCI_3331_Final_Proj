@@ -1,5 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -24,7 +25,8 @@ public class CardBuilder implements Builder<Region> {
         card.setMinWidth(180);
         card.getChildren().addAll(
                 new Label(model.getItemName()),
-                new Label(String.format("%.2f", model.getPrice())));
+                new Label(String.format("%.2f", model.getPrice())),
+				new ImageView("flour.png"));
         card.setBackground(new Background(new BackgroundFill(Color.WHITE , new CornerRadii(10), new Insets(10))));
         return card;
     }
