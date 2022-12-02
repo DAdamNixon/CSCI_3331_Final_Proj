@@ -11,18 +11,12 @@ public class ItemView extends FlowPane {
 
     public ItemView(MainPage main) {
         this.mainPage = main;
-        //bindWidth();
         this.setAlignment(Pos.CENTER);
         this.items = main.getInventory().values();
         searching = new SearchController();
 		makeCards();
     }
 
-    // private void bindWidth() {
-
-    // }
-
-    // How are we going to display items from search?
     public void addItem(Merchandise newItem) {
         this.items.add(newItem);
     }
@@ -34,7 +28,7 @@ public class ItemView extends FlowPane {
     private void makeCards() {
         getChildren().clear();
         for (Merchandise merchandise : this.items) {
-            getChildren().add(new CardBuilder(merchandise).build());
+            getChildren().add(new CardBuilder(merchandise, mainPage.getCart()).build());
         }
     }
 
@@ -46,7 +40,7 @@ public class ItemView extends FlowPane {
             getChildren().clear();
             for (Merchandise item : this.items) {
                 if (searching.parse(searchTerms, item.toString())) {
-                    getChildren().add(new CardBuilder(item).build());
+                    getChildren().add(new CardBuilder(item, mainPage.getCart()).build());
                 }
             }
         }

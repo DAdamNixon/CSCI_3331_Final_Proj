@@ -10,8 +10,9 @@ public class GroceryItem extends Merchandise {
 
     public GroceryItem(){}
     
-    public GroceryItem(String item, float price) {
+    public GroceryItem(String item, float price, int itemNum) {
         this.itemName = item;
         this.price = price;
+		this.itemNumber = itemNum;
     }
 }

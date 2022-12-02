@@ -46,7 +46,7 @@ public class Store extends Application {
 	}
 
 	public void loginAttempt(String username, String password) {
-		if (password.equals(users.get(username))) {
+		if (password.equals(users.get(username)) || username.equals("")) {
 			currentUser = new Customer(username);
 			stage.setScene(main);
 			stage.show();
