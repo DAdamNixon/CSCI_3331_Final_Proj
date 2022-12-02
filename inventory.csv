@@ -1,14 +1,14 @@
 1
-Flour,2.99,12344
+Flour,2.99,12344,flour.png
 Cornmeal,2.99,12345
 Oatmeal,5.99,12346
 Canola oil,4.99,12347
 Peanut oil,5.99,12348
 Baby Formula,12.99,12349
 2
-Motor oil 0w30,9.99,23456
-Motor oil 5w30,9.99,23457
-Motor oil 10w30,9.99,23458
+Motor oil 0w30,9.99,23456,oil-jug.png
+Motor oil 5w30,9.99,23457,oil-jug.png
+Motor oil 10w30,9.99,23458,oil-jug.png
 Wiper Fluid,7.99,23459
 3
 Ribeye rib roast,12.99,13.9,34567
