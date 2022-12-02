@@ -10,13 +10,17 @@ public class ItemView extends FlowPane {
     MainPage mainPage;
 
     public ItemView(MainPage main) {
-        mainPage = main;
-        main.setCenter(this);
+        this.mainPage = main;
+        //bindWidth();
         this.setAlignment(Pos.CENTER);
         this.items = main.getInventory().values();
         searching = new SearchController();
 		makeCards();
     }
+
+    // private void bindWidth() {
+
+    // }
 
     // How are we going to display items from search?
     public void addItem(Merchandise newItem) {

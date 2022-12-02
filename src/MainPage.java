@@ -1,7 +1,11 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,7 +48,13 @@ public class MainPage extends BorderPane {
 	}
 
     private void setLayout() {
-        this.setCenter(view);
+        ScrollPane scroll = new ScrollPane(view);
+        scroll.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> bounds, Bounds oldBounds, Bounds newBounds) {
+                view.setPrefWidth(newBounds.getWidth());
+            }});
+        this.setCenter(scroll);
         this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
         this.searchBox.setAlignment(Pos.CENTER_RIGHT);
         this.setTop(searchBox);
