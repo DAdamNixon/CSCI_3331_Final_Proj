@@ -19,10 +19,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-// MainPage 
-// This is the container for all of the pieces of the Store itself
+
+// MainPage is a GUI used in conglomeration with ItemView and Cart to display the list
+// of available items, the cart, and the checkout window. This interface also contains the Search Bar
 public class MainPage extends BorderPane {
 
+    // Fields
     private TextField search;
     private User currentUser;
 
@@ -71,6 +73,7 @@ public class MainPage extends BorderPane {
                 view.setPrefWidth(newBounds.getWidth());
             }
         });
+
         this.setCenter(scroll);
 
         return view;

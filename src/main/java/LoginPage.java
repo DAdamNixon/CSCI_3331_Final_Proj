@@ -17,14 +17,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+// LoginPage is a GUI used to allow a user to sign into the application
 public class LoginPage extends BorderPane {
 
+	// Fields
 	private Store mainStore;
 	private TextField username;
 	private TextField password;
 	private Button btnLogin;
 	private Button btnQuit;
 
+	// Constructor
 	LoginPage(Store main) {
 		this.mainStore = main;
 		this.username = new TextField();
@@ -44,6 +47,7 @@ public class LoginPage extends BorderPane {
 
 	}
 
+	// Sets the GUI layout and design
 	private void setLoginCard() {
 		VBox container = new VBox();
 		Region spacer = new Region();

@@ -11,14 +11,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
 // ItemView is a GUI interface for displaying the items that are purchaseable from the store
-
 public class ItemView extends FlowPane {
 
     // Collection of the items that are purchaseable from the store
     private Collection<Merchandise> items;
-
-    // Search controller
-    SearchController searching;
+    MainPage mainPage;
 
     // Cart
     Cart cart;
@@ -30,7 +27,6 @@ public class ItemView extends FlowPane {
         this.setAlignment(Pos.CENTER);
         this.items = merch;
         this.cart = cart;
-        searching = new SearchController();
         makeCards();
     }
 
@@ -43,16 +39,33 @@ public class ItemView extends FlowPane {
     }
 
     // Calls makeCards() on an empty search bar, or makes cards for items containing the search terms
+    // Adds items to view based on search terms
     public void search(String searchTerms) {
         if (searchTerms.equals("")) {
             makeCards();
         } else {
             getChildren().clear();
             for (Merchandise item : this.items) {
-                if (searching.parse(searchTerms, item.toString())) {
-                    getChildren().add(InventoryController.card(item, this.cart));
+                if (parse(searchTerms, item.toString())) {
+                    getChildren().add(InventoryController.card(item, mainPage.getCart()));
                 }
             }
         }
+    }
+
+    // Helper method for the search function
+    private boolean parse(String text, String item) {
+        String query = text.toLowerCase();
+        String itemInfo = item.toLowerCase();
+        String[] buffer = query.split(" ");
+        Boolean flag = false;
+
+        for (String string : buffer) {
+            if (itemInfo.contains(string)) {
+                flag = true;
+            }
+        }
+
+        return flag;
     }
 }
