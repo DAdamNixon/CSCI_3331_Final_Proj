@@ -10,6 +10,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
+// ItemView is a GUI interface for displaying the items that are purchaseable from the store
+
 public class ItemView extends FlowPane {
 
     // List of items related to the current search query
@@ -37,7 +39,7 @@ public class ItemView extends FlowPane {
     private void makeCards() {
         getChildren().clear();
         for (Merchandise merchandise : this.items) {
-            getChildren().add(new CardBuilder(merchandise, mainPage.getCart()).build());
+            getChildren().add(InventoryController.card(merchandise, mainPage.getCart()));
         }
     }
 
@@ -48,7 +50,7 @@ public class ItemView extends FlowPane {
             getChildren().clear();
             for (Merchandise item : this.items) {
                 if (searching.parse(searchTerms, item.toString())) {
-                    getChildren().add(new CardBuilder(item, mainPage.getCart()).build());
+                    getChildren().add(InventoryController.card(item, mainPage.getCart()));
                 }
             }
         }
