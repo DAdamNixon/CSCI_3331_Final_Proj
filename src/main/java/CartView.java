@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -22,11 +23,12 @@ public class CartView extends VBox {
 		this.scroll = new ScrollPane(this.container);
 		this.scroll.setPrefHeight(500);
 		this.scroll.setFitToWidth(true);
+		this.scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		this.panel = new Panel(cart);
 		updateLabels(0);
-		
-		this.setPrefWidth(200);
+
+		this.setPrefWidth(195);
 		getChildren().addAll(this.scroll, this.panel);
 
 	}
@@ -71,6 +73,7 @@ public class CartView extends VBox {
 			cart.setFlag();
 			this.add(new CardBuilder(merch, cart).build());
 		}
+		updateLabels(cart.getSubtotal());
 	}
 }
 
@@ -94,7 +97,7 @@ class Panel extends VBox {
 
 		HBox spacerBox = new HBox();
 		spacerBox.getChildren().add(spacer());
-		VBox.setVgrow(spacerBox, Priority.ALWAYS);
+		spacerBox.setPrefHeight(40);
 
 		HBox totalBox = new HBox();
 		Label total = new Label("Total:");
@@ -105,11 +108,17 @@ class Panel extends VBox {
 		Button clearButton = new Button("Clear Cart");
 		clearButton.setPrefHeight(40);
 
+		HBox spacerBox2 = new HBox();
+		spacerBox2.getChildren().add(spacer());
+		spacerBox2.setPrefHeight(80);
+
+
+
 		Button purchaseButton = new Button("Make Purchase");
 		purchaseButton.setPrefHeight(40);
 		buttonBox.getChildren().addAll(clearButton, spacer(), purchaseButton);
 
-		this.getChildren().addAll(subtotalBox, taxBox, spacerBox, totalBox, buttonBox);
+		this.getChildren().addAll(subtotalBox, taxBox, spacerBox, totalBox, spacerBox2, buttonBox);
 	}
 
 	public Label getSubtotalValue() {

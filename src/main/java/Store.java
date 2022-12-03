@@ -23,7 +23,7 @@ public class Store extends Application {
 		loadUserBase();
 		this.stage = primaryStage;
 		this.login = new Scene(new LoginPage(this), 500, 500);
-		this.main = new Scene(new MainPage(), 800, 800);
+		this.main = new Scene(new MainPage(), 780, 700);
 		primaryStage.setScene(login);
 		primaryStage.show();
 	}

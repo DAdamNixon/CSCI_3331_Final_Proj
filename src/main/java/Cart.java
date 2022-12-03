@@ -36,6 +36,13 @@ public class Cart {
 		view.makeCards(this);
 	}
 
+	public float getSubtotal() {
+		float subtotal = 0f;
+		for (Merchandise merchandise : cart) {
+			subtotal += merchandise.getPrice();
+		}
+		return subtotal;
+	}
 	public LinkedList<Merchandise> getCart() {
 		return this.cart;
 	}
