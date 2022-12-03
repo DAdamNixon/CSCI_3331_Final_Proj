@@ -15,7 +15,7 @@ public class Cart {
 		this.main = mainPage;
 		this.invCont = iController;
 		this.cart = new LinkedList<>();
-		this.view = new CartView();
+		this.view = new CartView(this);
 		this.flag = false;
 	}
 
