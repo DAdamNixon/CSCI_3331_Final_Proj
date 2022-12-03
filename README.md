@@ -6,7 +6,7 @@
 - Login View: <br>
 ![image](https://user-images.githubusercontent.com/113068231/205457973-5e915696-4fe8-4b0a-9904-823438bcecc5.png)
 
-- Main View <br>
+- Main View: <br>
 ![image](https://user-images.githubusercontent.com/113068231/205458030-42894e19-2856-43c9-8464-d4e53455db00.png)
 
 
