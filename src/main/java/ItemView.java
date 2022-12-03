@@ -47,7 +47,7 @@ public class ItemView extends FlowPane {
             getChildren().clear();
             for (Merchandise item : this.items) {
                 if (parse(searchTerms, item.toString())) {
-                    getChildren().add(InventoryController.card(item, mainPage.getCart()));
+                    getChildren().add(InventoryController.card(item, this.cart));
                 }
             }
         }
