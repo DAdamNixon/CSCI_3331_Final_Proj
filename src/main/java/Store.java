@@ -29,7 +29,7 @@ public class Store extends Application {
 	}
 
 	private void loadUserBase() {
-		try (Scanner input = new Scanner(new File(Resources.makePath("Users.csv")))) {
+		try (Scanner input = new Scanner(new File(Resources.dataPath("Users.csv")))) {
 			String[] line;
 			while (input.hasNextLine()) {
 				line = input.nextLine().split(",");

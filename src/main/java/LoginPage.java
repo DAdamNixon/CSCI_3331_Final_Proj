@@ -23,7 +23,7 @@ public class LoginPage extends BorderPane {
 		this.btnLogin = new Button("Login");
 		this.btnQuit = new Button("Quit");
 		GridPane gp = new GridPane();
-		IconView icon = new IconView(Resources.makePath("flour.png"));
+		IconView icon = new IconView(Resources.imagePath("flour.png"));
 		this.setTop(icon);
 
 		btnLogin.setOnAction(e -> {

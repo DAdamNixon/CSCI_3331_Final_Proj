@@ -23,13 +23,13 @@ public class MainPage extends BorderPane {
 	private Cart cart;
 
     public MainPage() {
-		this.invCont = new InventoryController(Resources.makePath("inventory.csv"));
+		this.invCont = new InventoryController("inventory.csv");
 		this.cart = new Cart(this, invCont);
         this.searchBox = new HBox();
         this.search = new TextField();
         this.search.setPromptText("Keywords...");
         this.lblSearch = new Label("Search: ");
-        ImageView image = new ImageView(Resources.makePath("searchGlass.png"));
+        ImageView image = new ImageView(Resources.imagePath("searchGlass.png"));
         image.setPreserveRatio(true);
         image.setFitHeight(11);
         image.setFitWidth(11);

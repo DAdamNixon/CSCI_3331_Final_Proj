@@ -28,7 +28,7 @@ public class CardBuilder implements Builder<Region> {
         card.getChildren().addAll(
                 new Label(model.getItemName()),
                 new Label(String.format("%.2f", model.getPrice())),
-				new IconView(Resources.makePath("flour.png")),
+				new IconView(Resources.imagePath("flour.png")),
 				new StockPanel(model.inStock, model.itemNumber, this.cart));
         card.setBackground(new Background(new BackgroundFill(Color.WHITE , new CornerRadii(10), new Insets(10))));
         return card;

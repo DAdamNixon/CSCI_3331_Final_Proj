@@ -15,7 +15,7 @@ public class InventoryController {
     }
 
 	private void loadInventory(String fileName) {
-        File inventoryFile = new File(fileName);
+        File inventoryFile = new File(Resources.dataPath(fileName));
 		try (Scanner input = new Scanner(inventoryFile)) {
 			int merchandiseType = 0;
 			while(input.hasNextLine()) {
