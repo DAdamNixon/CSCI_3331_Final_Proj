@@ -8,7 +8,12 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+// Store is the main class of the application.
+
 public class Store extends Application {
+
+	// Fields
 	Stage stage;
 	Scene main;
 	MainPage mainPage;
@@ -16,6 +21,7 @@ public class Store extends Application {
 	Scene login;
 	HashMap<String, String> users;
 
+	// Application start() method. Called once at execution
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.users = new HashMap<>();
@@ -29,6 +35,7 @@ public class Store extends Application {
 		primaryStage.show();
 	}
 
+	// Reads the user.csv file in and builds the users HashMap for login purposes
 	private void loadUserBase() {
 		try (Scanner input = new Scanner(new File(Resources.dataPath("Users.csv")))) {
 			String[] line;
@@ -43,10 +50,12 @@ public class Store extends Application {
 
 	}
 
+	// Main method
 	public static void main(String[] args) throws Exception {
 		launch(args);
 	}
 
+	// Attempts a login with the credentials in the login box
 	public void loginAttempt(String username, String password) {
 		User user;
 		if (password.equals(users.get(username)) || username.equals("")) {

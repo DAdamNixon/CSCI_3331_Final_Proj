@@ -28,13 +28,17 @@ public class InventoryController {
 
 	private static String filename = "inventory.csv";
 
+	// Hashmap to store and control inventory 
 	public HashMap<Integer, Merchandise> inventory;
 
+	// Constructor
+	// initializes Hashmap and loads inventory file
 	public InventoryController() {
 		this.inventory = new HashMap<Integer, Merchandise>();
 		loadInventory();
 	}
 
+	// reads in the inventory.csv file and creates merchandise objects based on the data
 	private void loadInventory() {
 		File inventoryFile = new File(Resources.dataPath(filename));
 		try (Scanner input = new Scanner(inventoryFile)) {
@@ -64,21 +68,23 @@ public class InventoryController {
 					}
 				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	// Static method to build a card based on the merchandise parameter
 	public static Region card(Merchandise model, Cart cart) {
 		return new CardBuilder(model, cart).build();
 	}
 
+	// Returns the Merchandise item with the given item number
 	public Merchandise get(int itemNum) {
 		return this.inventory.get(itemNum);
 	}
 
+	// Returns a Collection containing all of the items in the store
 	protected final Collection<Merchandise> values() {
 		return inventory.values();
 	}
@@ -91,11 +97,14 @@ class CardBuilder implements Builder<Region> {
     Merchandise model;
     Cart cart;
 
+	// Constructor
+	// Sets variables necessary to build()
     public CardBuilder(Merchandise model, Cart cart) {
         this.model = model;
         this.cart = cart;
     }
 
+	// Interface method.  Builds a GUI construct based on the Merchandise of the CardBuilder
     @Override
     public Region build() {
         VBox card = new VBox();
@@ -116,7 +125,8 @@ class CardBuilder implements Builder<Region> {
 // StockPanel is a component used by CardBuilder to display the number of items in stock and the button to add an item to the cart
 class StockPanel extends HBox {
 	
-
+	// Constructor
+	// Builds Labels and controls for the Cart
 	StockPanel(int inStock, int itemNumber, Cart cart) {
 		Label stockLabel = new Label("In Stock: " + inStock);
 		Button addToCart = new Button();

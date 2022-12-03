@@ -49,21 +49,21 @@ public class MainPage extends BorderPane {
         return this.currentUser;
     }
 
-    //
+    // Builds the logical components and GUI components of the store
     private void setLayout() {
+        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
         InventoryController invCont = new InventoryController();
         buildSearch(buildItemView(buildCart(invCont), invCont.values()));
-
-        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-    
+    // Builds and returns the cart to pass as a reference
     private Cart buildCart(InventoryController iController) {
         Cart cart = new Cart(this, iController);
         this.setRight(cart.getView());
         return cart;
     }
 
+    // Builds and returns the ItemView to pass as a reference
     private ItemView buildItemView(Cart cart, Collection<Merchandise> merch) {
         ItemView view = new ItemView(cart, merch);
         ScrollPane scroll = new ScrollPane(view);
@@ -79,6 +79,7 @@ public class MainPage extends BorderPane {
         return view;
     }
 
+    // Builds the search bar
     private void buildSearch(ItemView view) {
         HBox searchBox = new HBox();
         this.search = new TextField();
