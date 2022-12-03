@@ -6,11 +6,8 @@ public class MeatItem extends GroceryItem {
     public float weight;
 
     public MeatItem(String item, float price, float weight, int itemNum, String path) {
-        this.itemName = item;
-        this.pricePerPound = price;
+        super(item, price * weight, itemNum, path);
         this.weight = weight;
-        this.price = price * weight;
-        this.itemNumber = itemNum;
-        this.filePath = path;
+        this.pricePerPound = price;
     }
 }

@@ -16,9 +16,11 @@ public class CartView extends VBox {
 	ScrollPane scroll;
 	FlowPane container;
 	Panel panel;
+	Cart cart;
 
 	public CartView(Cart cart){
 		
+		this.cart = cart;
 		this.container = new FlowPane();
 		this.scroll = new ScrollPane(this.container);
 		this.scroll.setPrefHeight(500);
@@ -26,16 +28,30 @@ public class CartView extends VBox {
 		this.scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		this.panel = new Panel(cart);
-		updateLabels(0);
+		updateLabels();
 
 		this.setPrefWidth(195);
 		getChildren().addAll(this.scroll, this.panel);
 
 	}
 
-	public void updateLabels(float subtotal) {
+	public void updateLabels() {
+		float taxableSubtotal = 0f;
+		float untaxableSubtotal = 0f;
+
+		for (Merchandise merch : this.cart.getCart()) {
+			if (merch.taxable()) {
+				taxableSubtotal += merch.getPrice();
+			}
+			else {
+				untaxableSubtotal += merch.getPrice();
+			}
+		}
+
+		float subtotal = taxableSubtotal + untaxableSubtotal;
+
 		this.panel.getSubtotalValue().setText(String.format("%.2f", subtotal));
-		updateTotalLabel(updateTaxLabel(subtotal));
+		updateTotalLabel(updateTaxLabel(taxableSubtotal) + subtotal);
 		
 
 	}
@@ -43,7 +59,7 @@ public class CartView extends VBox {
 	private float updateTaxLabel(float subtotal) {
 		float tax = subtotal * 0.0825f;
 		this.getTax().setText(String.format("%.2f", tax));
-		return subtotal + tax;
+		return tax;
 	}
 	
 	private void updateTotalLabel(float total) {
@@ -66,14 +82,14 @@ public class CartView extends VBox {
 		this.container.getChildren().add(card);
 	}
 
-	public void makeCards(Cart cart) {
-		LinkedList<Merchandise> merchandise = cart.getCart();
+	public void makeCards() {
+		LinkedList<Merchandise> merchandise = this.cart.getCart();
 		this.container.getChildren().clear();
 		for (Merchandise merch : merchandise) {
 			cart.setFlag();
-			this.add(new CardBuilder(merch, cart).build());
+			this.add(new CardBuilder(merch, this.cart).build());
 		}
-		updateLabels(cart.getSubtotal());
+		updateLabels();
 	}
 }
 
@@ -87,12 +103,12 @@ class Panel extends VBox {
 	
 		HBox subtotalBox = new HBox();
 		Label subtotal = new Label("Subtotal:");
-		this.subtotalValue = new Label("12.99");
+		this.subtotalValue = new Label("0.00");
 		subtotalBox.getChildren().addAll(subtotal, spacer() ,subtotalValue);
 
 		HBox taxBox = new HBox();
 		Label tax = new Label("Tax (8.25%):");
-		this.taxValue = new Label("12.99");
+		this.taxValue = new Label("0.00");
 		taxBox.getChildren().addAll(tax, spacer(),taxValue);
 
 		HBox spacerBox = new HBox();
@@ -101,7 +117,7 @@ class Panel extends VBox {
 
 		HBox totalBox = new HBox();
 		Label total = new Label("Total:");
-		this.totalValue = new Label("25.98");
+		this.totalValue = new Label("0.00");
 		totalBox.getChildren().addAll(total, spacer(),totalValue);
 
 		HBox buttonBox = new HBox();

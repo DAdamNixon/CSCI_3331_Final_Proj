@@ -7,5 +7,6 @@ public class AutomotiveItem extends Merchandise {
         this.price = price;
         this.itemNumber = itemNum;
         this.filePath = path;
+        this.taxable = true;
     }
 }

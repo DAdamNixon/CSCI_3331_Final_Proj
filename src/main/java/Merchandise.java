@@ -28,6 +28,9 @@ public abstract class Merchandise {
         return this.filePath;
     }
 
+    public boolean taxable() {
+        return this.taxable;
+    }
     @Override
     public String toString() {
         return this.getItemName() + "," + this.getPrice();

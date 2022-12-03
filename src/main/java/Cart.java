@@ -27,13 +27,13 @@ public class Cart {
 		Merchandise item = invCont.get(itemNum);
 		if (item != null) {
 			cart.add(item);
-			view.makeCards(this);
+			view.makeCards();
 		}
 	}
 
 	public void removeItem(int itemNum) {
 		this.cart.remove(invCont.get(itemNum));
-		view.makeCards(this);
+		view.makeCards();
 	}
 
 	public float getSubtotal() {

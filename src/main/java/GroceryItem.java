@@ -18,5 +18,6 @@ public class GroceryItem extends Merchandise {
         this.price = price;
         this.itemNumber = itemNum;
         this.filePath = path;
+        this.taxable = false;
     }
 }
