@@ -11,19 +11,21 @@ import javafx.stage.Stage;
 public class Store extends Application {
 	Stage stage;
 	Scene main;
+	MainPage mainPage;
 	Scene cart;
 	Scene login;
 	InventoryController inventory;
 	HashMap<String, String> users;
-	User currentUser;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.users = new HashMap<>();
 		loadUserBase();
+
 		this.stage = primaryStage;
 		this.login = new Scene(new LoginPage(this), 500, 500);
-		this.main = new Scene(new MainPage(), 780, 700);
+		this.mainPage = new MainPage();
+		this.main = new Scene(mainPage, 780, 700);
 		primaryStage.setScene(login);
 		primaryStage.show();
 	}
@@ -47,8 +49,10 @@ public class Store extends Application {
 	}
 
 	public void loginAttempt(String username, String password) {
+		User user;
 		if (password.equals(users.get(username)) || username.equals("")) {
-			currentUser = new Customer(username);
+			user = new Customer(username);
+			mainPage.setUser(user);
 			stage.setScene(main);
 			stage.show();
 		}

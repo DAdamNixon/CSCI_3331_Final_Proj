@@ -111,28 +111,38 @@ class Panel extends VBox {
 		this.taxValue = new Label("0.00");
 		taxBox.getChildren().addAll(tax, spacer(),taxValue);
 
+
 		HBox spacerBox = new HBox();
 		spacerBox.getChildren().add(spacer());
 		spacerBox.setPrefHeight(40);
+
 
 		HBox totalBox = new HBox();
 		Label total = new Label("Total:");
 		this.totalValue = new Label("0.00");
 		totalBox.getChildren().addAll(total, spacer(),totalValue);
 
-		HBox buttonBox = new HBox();
-		Button clearButton = new Button("Clear Cart");
-		clearButton.setPrefHeight(40);
 
 		HBox spacerBox2 = new HBox();
 		spacerBox2.getChildren().add(spacer());
 		spacerBox2.setPrefHeight(80);
 
 
-
+		HBox buttonBox = new HBox();
+		
+		Button clearButton = new Button("Clear Cart");
+		clearButton.setPrefHeight(40);
+		clearButton.setOnAction(e -> {
+			cart.clear();
+		});
 		Button purchaseButton = new Button("Make Purchase");
+		purchaseButton.setOnAction(e -> {
+			cart.purchase();
+		});
 		purchaseButton.setPrefHeight(40);
+
 		buttonBox.getChildren().addAll(clearButton, spacer(), purchaseButton);
+
 
 		this.getChildren().addAll(subtotalBox, taxBox, spacerBox, totalBox, spacerBox2, buttonBox);
 	}

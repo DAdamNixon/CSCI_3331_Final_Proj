@@ -21,6 +21,7 @@ public class MainPage extends BorderPane {
     private Button btnSearch;
     private ItemView view;
 	private Cart cart;
+    private User currentUser;
 
     public MainPage() {
 		this.invCont = new InventoryController();
@@ -49,9 +50,18 @@ public class MainPage extends BorderPane {
 		return this.invCont;
 	}
 
+    public void setUser(User user) {
+        this.currentUser = user;
+    }
+
+    public User getUser() {
+        return this.currentUser;
+    }
+
 	public Cart getCart() {
 		return this.cart;
 	}
+    
     private void setLayout() {
         ScrollPane scroll = new ScrollPane(view);
         scroll.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
