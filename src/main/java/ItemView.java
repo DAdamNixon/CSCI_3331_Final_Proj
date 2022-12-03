@@ -40,6 +40,7 @@ public class ItemView extends FlowPane {
         }
     }
 
+    // Adds items to view based on search terms
     public void search(String searchTerms) {
         if (searchTerms.equals("")) {
             makeCards();
@@ -53,6 +54,7 @@ public class ItemView extends FlowPane {
         }
     }
 
+    // Helper method for the search function
     private boolean parse(String text, String item) {
         String query = text.toLowerCase();
         String itemInfo = item.toLowerCase();

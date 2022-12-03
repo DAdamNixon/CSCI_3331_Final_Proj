@@ -17,7 +17,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-// MainPage is a GUI interface used in conglomeration with ItemView and Cart to display the list
+// MainPage is a GUI used in conglomeration with ItemView and Cart to display the list
 // of available items, the cart, and the checkout window. This interface also contains the Search Bar
 public class MainPage extends BorderPane {
 
