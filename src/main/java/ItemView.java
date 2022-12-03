@@ -38,8 +38,8 @@ public class ItemView extends FlowPane {
         }
     }
 
-    // Calls makeCards() on an empty search bar, or makes cards for items containing the search terms
-    // Adds items to view based on search terms
+    // Calls makeCards() on an empty search bar, or makes cards for items containing
+    // the search terms
     public void search(String searchTerms) {
         if (searchTerms.equals("")) {
             makeCards();

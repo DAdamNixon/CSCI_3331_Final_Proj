@@ -1,7 +1,6 @@
 package main.java;
 
 // Resources is a pipeline for using resource files
-// Static class which appends filepaths
 public class Resources {
 	private static String resourcePath = "./main/resources/";
 	private static String dataPath = "./src/main/resources/";
