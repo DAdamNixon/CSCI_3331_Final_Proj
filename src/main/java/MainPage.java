@@ -23,7 +23,7 @@ public class MainPage extends BorderPane {
 	private Cart cart;
 
     public MainPage() {
-		this.invCont = new InventoryController("inventory.csv");
+		this.invCont = new InventoryController();
 		this.cart = new Cart(this, invCont);
         this.searchBox = new HBox();
         this.search = new TextField();
