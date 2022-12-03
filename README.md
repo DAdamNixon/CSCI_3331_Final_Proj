@@ -8,4 +8,4 @@
 ## Debugging Collaborators <br>
 - None
 
-#### Cumulative Hours Spent on Development:
+#### Cumulative Hours Spent on Development: 25-30
