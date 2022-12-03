@@ -1,7 +1,6 @@
 package main.java;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -24,9 +23,6 @@ public class InventoryController {
 			while (input.hasNextLine()) {
 
 				String[] line = input.nextLine().split(",");
-				for (int i = 0; i < line.length; i++) {
-					System.out.println(line[i]);
-				}
 				if (line.length == 1) {
 					merchandiseType = Integer.valueOf(line[0]);
 				} else {
