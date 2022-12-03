@@ -1,4 +1,5 @@
 package main.java;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -12,11 +13,11 @@ import javafx.util.Builder;
 public class CardBuilder implements Builder<Region> {
 
     Merchandise model;
-	Cart cart;
+    Cart cart;
 
     public CardBuilder(Merchandise model, Cart cart) {
         this.model = model;
-		this.cart = cart;
+        this.cart = cart;
     }
 
     @Override
@@ -28,11 +29,10 @@ public class CardBuilder implements Builder<Region> {
         card.getChildren().addAll(
                 new Label(model.getItemName()),
                 new Label(String.format("%.2f", model.getPrice())),
-				new IconView(Resources.imagePath("flour.png")),
-				new StockPanel(model.inStock, model.itemNumber, this.cart));
-        card.setBackground(new Background(new BackgroundFill(Color.WHITE , new CornerRadii(10), new Insets(10))));
+                new IconView(Resources.imagePath(model.getpath())),
+                new StockPanel(model.inStock, model.itemNumber, this.cart));
+        card.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), new Insets(10))));
         return card;
     }
 
-    
 }

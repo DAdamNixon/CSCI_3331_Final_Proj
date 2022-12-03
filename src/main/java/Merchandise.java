@@ -1,4 +1,5 @@
 package main.java;
+
 public abstract class Merchandise {
 
     protected int itemNumber;
@@ -13,12 +14,18 @@ public abstract class Merchandise {
 
     protected boolean taxable;
 
-    public final String getItemName(){
+    protected String filePath;
+
+    public final String getItemName() {
         return this.itemName;
     }
 
     public final double getPrice() {
         return this.price;
+    }
+
+    public final String getpath() {
+        return this.filePath;
     }
 
     @Override

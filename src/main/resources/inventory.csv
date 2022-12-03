@@ -1,17 +1,17 @@
 1
 Flour,2.99,12344,flour.png
-Cornmeal,2.99,12345
-Oatmeal,5.99,12346
-Canola oil,4.99,12347
-Peanut oil,5.99,12348
-Baby Formula,12.99,12349
+Cornmeal,2.99,12345,cornmeal.png
+Oatmeal,5.99,12346,oatmeal.png
+Canola oil,4.99,12347,canolaoil.png
+Peanut oil,5.99,12348,peanutoil.png
+Baby Formula,12.99,12349,babyformula.png
 2
 Motor oil 0w30,9.99,23456,oil-jug.png 
 Motor oil 5w30,9.99,23457,oil-jug.png
 Motor oil 10w30,9.99,23458,oil-jug.png
-Wiper Fluid,7.99,23459
+Wiper Fluid,7.99,23459,wiperfluid.png
 3
-Ribeye rib roast,12.99,34567,13.9
-Big ol steak,9.99,34568,1.87
-Pork Sausage - Mild,4.99,34569,1
-Pork Sausage - Spicy,4.99,34570,1
+Ribeye rib roast,12.99,34567,13.9,ribeye.png
+Big ol steak,9.99,34568,1.87,steak.png
+Pork Sausage - Mild,4.99,34569,1,porksausage.png
+Pork Sausage - Spicy,4.99,34570,1,porksausage.png
