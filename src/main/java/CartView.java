@@ -1,15 +1,21 @@
 package main.java;
+
 import java.util.LinkedList;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class CartView extends VBox {
 
@@ -18,11 +24,12 @@ public class CartView extends VBox {
 	Panel panel;
 	Cart cart;
 
-	public CartView(Cart cart){
-		
+	public CartView(Cart cart) {
 		this.cart = cart;
 		this.container = new FlowPane();
 		this.scroll = new ScrollPane(this.container);
+		this.container
+				.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.scroll.setPrefHeight(500);
 		this.scroll.setFitToWidth(true);
 		this.scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -42,8 +49,7 @@ public class CartView extends VBox {
 		for (Merchandise merch : this.cart.getCart()) {
 			if (merch.taxable()) {
 				taxableSubtotal += merch.getPrice();
-			}
-			else {
+			} else {
 				untaxableSubtotal += merch.getPrice();
 			}
 		}
@@ -52,7 +58,6 @@ public class CartView extends VBox {
 
 		this.panel.getSubtotalValue().setText(String.format("%.2f", subtotal));
 		updateTotalLabel(updateTaxLabel(taxableSubtotal) + subtotal);
-		
 
 	}
 
@@ -61,7 +66,7 @@ public class CartView extends VBox {
 		this.getTax().setText(String.format("%.2f", tax));
 		return tax;
 	}
-	
+
 	private void updateTotalLabel(float total) {
 		this.getTotal().setText(String.format("$ %.2f", total));
 	}
@@ -100,36 +105,32 @@ class Panel extends VBox {
 	Label totalValue;
 
 	public Panel(Cart cart) {
-	
+
 		HBox subtotalBox = new HBox();
 		Label subtotal = new Label("Subtotal:");
 		this.subtotalValue = new Label("0.00");
-		subtotalBox.getChildren().addAll(subtotal, spacer() ,subtotalValue);
+		subtotalBox.getChildren().addAll(subtotal, spacer(), subtotalValue);
 
 		HBox taxBox = new HBox();
 		Label tax = new Label("Tax (8.25%):");
 		this.taxValue = new Label("0.00");
-		taxBox.getChildren().addAll(tax, spacer(),taxValue);
-
+		taxBox.getChildren().addAll(tax, spacer(), taxValue);
 
 		HBox spacerBox = new HBox();
 		spacerBox.getChildren().add(spacer());
 		spacerBox.setPrefHeight(40);
 
-
 		HBox totalBox = new HBox();
 		Label total = new Label("Total:");
 		this.totalValue = new Label("0.00");
-		totalBox.getChildren().addAll(total, spacer(),totalValue);
-
+		totalBox.getChildren().addAll(total, spacer(), totalValue);
 
 		HBox spacerBox2 = new HBox();
 		spacerBox2.getChildren().add(spacer());
 		spacerBox2.setPrefHeight(80);
 
-
 		HBox buttonBox = new HBox();
-		
+
 		Button clearButton = new Button("Clear Cart");
 		clearButton.setPrefHeight(40);
 		clearButton.setOnAction(e -> {
@@ -142,7 +143,6 @@ class Panel extends VBox {
 		purchaseButton.setPrefHeight(40);
 
 		buttonBox.getChildren().addAll(clearButton, spacer(), purchaseButton);
-
 
 		this.getChildren().addAll(subtotalBox, taxBox, spacerBox, totalBox, spacerBox2, buttonBox);
 	}
