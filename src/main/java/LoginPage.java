@@ -42,7 +42,7 @@ public class LoginPage extends BorderPane {
 		this.setBackground(new Background(new BackgroundImage(new Image(Resources.imagePath("login.png")), null, null, null, null)));
 		IconView icon = new IconView(Resources.imagePath("flour.png"));
 		this.titleBox.getChildren().add(icon);
-		this.setTop(titleBox);
+		//this.setTop(titleBox);
 		this.titleBox.setAlignment(Pos.CENTER);
 
 		btnLogin.setOnAction(e -> {
