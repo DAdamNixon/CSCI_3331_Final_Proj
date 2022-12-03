@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.Collection;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
@@ -17,58 +19,51 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+// MainPage 
+// This is the container for all of the pieces of the Store itself
 public class MainPage extends BorderPane {
 
-    private InventoryController invCont;
     private TextField search;
-    private Label lblSearch;
-    private HBox searchBox;
-    private Button btnSearch;
-    private ItemView view;
-    private Cart cart;
     private User currentUser;
 
+    // Constructor
+    // Builds the components and sets them into the MainPage
     public MainPage() {
-        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.invCont = new InventoryController();
-        this.cart = new Cart(this, invCont);
-        this.searchBox = new HBox();
-        this.search = new TextField();
-        this.search.setPromptText("Keywords...");
-        this.lblSearch = new Label("Search: ");
-        ImageView image = new ImageView(Resources.imagePath("searchGlass.png"));
-        image.setPreserveRatio(true);
-        image.setFitHeight(11);
-        image.setFitWidth(11);
-        this.btnSearch = new Button("", image);
-        view = new ItemView(this);
-        btnSearch.setOnMouseClicked(e -> {
-            view.search(this.search.getText());
-        });
         setLayout();
     }
 
+    // Returns the text a user entered into the search bar
     public String getSearchText() {
         return search.getText();
     }
 
-    public InventoryController getInventory() {
-        return this.invCont;
-    }
-
+    // Sets the current user. Called during loginAttempt()
     public void setUser(User user) {
         this.currentUser = user;
     }
 
+    // Returns the current user
     public User getUser() {
         return this.currentUser;
     }
 
-    public Cart getCart() {
-        return this.cart;
+    //
+    private void setLayout() {
+        InventoryController invCont = new InventoryController();
+        buildSearch(buildItemView(buildCart(invCont), invCont.values()));
+
+        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-    private void setLayout() {
+    
+    private Cart buildCart(InventoryController iController) {
+        Cart cart = new Cart(this, iController);
+        this.setRight(cart.getView());
+        return cart;
+    }
+
+    private ItemView buildItemView(Cart cart, Collection<Merchandise> merch) {
+        ItemView view = new ItemView(cart, merch);
         ScrollPane scroll = new ScrollPane(view);
         scroll.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
             @Override
@@ -77,12 +72,28 @@ public class MainPage extends BorderPane {
             }
         });
         this.setCenter(scroll);
-        this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
-        this.searchBox.setAlignment(Pos.CENTER_RIGHT);
+
+        return view;
+    }
+
+    private void buildSearch(ItemView view) {
+        HBox searchBox = new HBox();
+        this.search = new TextField();
+        this.search.setPromptText("Keywords...");
+        Label lblSearch = new Label("Search: ");
+        ImageView image = new ImageView(Resources.imagePath("searchGlass.png"));
+        image.setPreserveRatio(true);
+        image.setFitHeight(11);
+        image.setFitWidth(11);
+        Button btnSearch = new Button("", image);
+        btnSearch.setOnAction(e -> {
+            view.search(this.search.getText());
+        });
+        searchBox.getChildren().addAll(lblSearch, search, btnSearch);
+        searchBox.setAlignment(Pos.CENTER_RIGHT);
         this.setTop(searchBox);
-        this.searchBox.setAlignment(Pos.CENTER);
-        this.searchBox.setPadding(new Insets(15, 12, 15, 12));
-        this.searchBox.setSpacing(10);
-        this.setRight(cart.getView());
+        searchBox.setAlignment(Pos.CENTER);
+        searchBox.setPadding(new Insets(15, 12, 15, 12));
+        searchBox.setSpacing(10);
     }
 }

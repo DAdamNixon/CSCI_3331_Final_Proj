@@ -23,7 +23,7 @@ import javafx.util.Builder;
 // Inventory Controller
 // Component Classes: CardBuilder, StockPanel, IconView
 
-// InventoryController is responsible for storing the current inventory of the store, and creating graphical depictions of the items through CardBuilder
+// InventoryController is responsible for storing the current inventory of the store, and creating graphical depictions of the Inventory items through CardBuilder
 public class InventoryController {
 
 	private static String filename = "inventory.csv";
@@ -104,7 +104,7 @@ class CardBuilder implements Builder<Region> {
         card.setMinWidth(180);
         card.getChildren().addAll(
                 new Label(model.getItemName()),
-                new Label(String.format("%.2f", model.getPrice())),
+                new Label(String.format("$ %.2f", model.getPrice())),
                 new IconView(Resources.imagePath(model.getpath())),
                 new StockPanel(model.inStock, model.itemNumber, this.cart));
         card.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), new Insets(10))));

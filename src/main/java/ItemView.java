@@ -14,35 +14,35 @@ import javafx.scene.paint.Color;
 
 public class ItemView extends FlowPane {
 
-    // List of items related to the current search query
+    // Collection of the items that are purchaseable from the store
     private Collection<Merchandise> items;
-    SearchController searching;
-    MainPage mainPage;
 
-    public ItemView(MainPage main) {
+    // Search controller
+    SearchController searching;
+
+    // Cart
+    Cart cart;
+
+    // Constructor
+    // Sets up the UI and builds a card for each item in the store
+    public ItemView(Cart cart, Collection<Merchandise> merch) {
         this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.mainPage = main;
         this.setAlignment(Pos.CENTER);
-        this.items = main.getInventory().values();
+        this.items = merch;
+        this.cart = cart;
         searching = new SearchController();
         makeCards();
     }
 
-    public void addItem(Merchandise newItem) {
-        this.items.add(newItem);
-    }
-
-    public void removeItem(Merchandise item) {
-        this.items.remove(item);
-    }
-
+    // Clears all card in the view, then makes a new set
     private void makeCards() {
         getChildren().clear();
         for (Merchandise merchandise : this.items) {
-            getChildren().add(InventoryController.card(merchandise, mainPage.getCart()));
+            getChildren().add(InventoryController.card(merchandise, this.cart));
         }
     }
 
+    // Calls makeCards() on an empty search bar, or makes cards for items containing the search terms
     public void search(String searchTerms) {
         if (searchTerms.equals("")) {
             makeCards();
@@ -50,7 +50,7 @@ public class ItemView extends FlowPane {
             getChildren().clear();
             for (Merchandise item : this.items) {
                 if (searching.parse(searchTerms, item.toString())) {
-                    getChildren().add(InventoryController.card(item, mainPage.getCart()));
+                    getChildren().add(InventoryController.card(item, this.cart));
                 }
             }
         }

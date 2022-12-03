@@ -14,7 +14,6 @@ public class Store extends Application {
 	MainPage mainPage;
 	Scene cart;
 	Scene login;
-	InventoryController inventory;
 	HashMap<String, String> users;
 
 	@Override
