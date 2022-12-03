@@ -1,5 +1,6 @@
 package main.java;
 
+// Static class which appends filepaths
 public class Resources {
 	private static String resourcePath = "./main/resources/";
 	private static String dataPath = "./src/main/resources/";

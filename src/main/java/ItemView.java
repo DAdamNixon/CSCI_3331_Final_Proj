@@ -11,12 +11,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
 // ItemView is a GUI interface for displaying the items that are purchaseable from the store
-
 public class ItemView extends FlowPane {
 
     // List of items related to the current search query
     private Collection<Merchandise> items;
-    SearchController searching;
     MainPage mainPage;
 
     public ItemView(MainPage main) {
@@ -24,7 +22,6 @@ public class ItemView extends FlowPane {
         this.mainPage = main;
         this.setAlignment(Pos.CENTER);
         this.items = main.getInventory().values();
-        searching = new SearchController();
         makeCards();
     }
 
@@ -49,10 +46,25 @@ public class ItemView extends FlowPane {
         } else {
             getChildren().clear();
             for (Merchandise item : this.items) {
-                if (searching.parse(searchTerms, item.toString())) {
+                if (parse(searchTerms, item.toString())) {
                     getChildren().add(InventoryController.card(item, mainPage.getCart()));
                 }
             }
         }
+    }
+
+    private boolean parse(String text, String item) {
+        String query = text.toLowerCase();
+        String itemInfo = item.toLowerCase();
+        String[] buffer = query.split(" ");
+        Boolean flag = false;
+
+        for (String string : buffer) {
+            if (itemInfo.contains(string)) {
+                flag = true;
+            }
+        }
+
+        return flag;
     }
 }

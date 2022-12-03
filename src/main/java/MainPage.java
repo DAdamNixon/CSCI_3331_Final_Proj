@@ -17,8 +17,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+// MainPage is a GUI interface used in conglomeration with ItemView and Cart to display the list
+// of available items, the cart, and the checkout window. This interface also contains the Search Bar
 public class MainPage extends BorderPane {
 
+    // Fields
     private InventoryController invCont;
     private TextField search;
     private Label lblSearch;
@@ -29,7 +32,8 @@ public class MainPage extends BorderPane {
     private User currentUser;
 
     public MainPage() {
-        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.setBackground(new Background(new BackgroundFill(Color.LAVENDER,
+                CornerRadii.EMPTY, Insets.EMPTY)));
         this.invCont = new InventoryController();
         this.cart = new Cart(this, invCont);
         this.searchBox = new HBox();
@@ -48,26 +52,32 @@ public class MainPage extends BorderPane {
         setLayout();
     }
 
+    // Returns the search bar text
     public String getSearchText() {
         return search.getText();
     }
 
+    // Returns the inventory controller
     public InventoryController getInventory() {
         return this.invCont;
     }
 
+    // Setter for the user
     public void setUser(User user) {
         this.currentUser = user;
     }
 
+    // Returns the current user
     public User getUser() {
         return this.currentUser;
     }
 
+    // Returns the current cart
     public Cart getCart() {
         return this.cart;
     }
 
+    // Helps the constructor setup the layout
     private void setLayout() {
         ScrollPane scroll = new ScrollPane(view);
         scroll.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
@@ -76,6 +86,7 @@ public class MainPage extends BorderPane {
                 view.setPrefWidth(newBounds.getWidth());
             }
         });
+
         this.setCenter(scroll);
         this.searchBox.getChildren().addAll(lblSearch, search, btnSearch);
         this.searchBox.setAlignment(Pos.CENTER_RIGHT);
