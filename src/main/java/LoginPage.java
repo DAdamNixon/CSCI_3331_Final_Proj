@@ -1,11 +1,18 @@
 package main.java;
+
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class LoginPage extends BorderPane {
 
@@ -14,9 +21,15 @@ public class LoginPage extends BorderPane {
 	private TextField password;
 	private Button btnLogin;
 	private Button btnQuit;
+	private Label lblTitle;
+	private HBox titleBox;
 
 	LoginPage(Store main) {
-
+		this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.lblTitle = new Label("The MarketPlace");
+		this.lblTitle.setFont(new Font("Consolas", 40));
+		this.titleBox = new HBox(lblTitle);
+		this.titleBox.setPadding(new Insets(20));
 		this.mainStore = main;
 		this.username = new TextField();
 		this.password = new TextField();
@@ -24,7 +37,9 @@ public class LoginPage extends BorderPane {
 		this.btnQuit = new Button("Quit");
 		GridPane gp = new GridPane();
 		IconView icon = new IconView(Resources.imagePath("flour.png"));
-		this.setTop(icon);
+		this.titleBox.getChildren().add(icon);
+		this.setTop(titleBox);
+		this.titleBox.setAlignment(Pos.CENTER);
 
 		btnLogin.setOnAction(e -> {
 			this.mainStore.loginAttempt(username.getText(), password.getText());
