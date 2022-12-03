@@ -1,4 +1,4 @@
-#### Collaborators: Adam Nixon, Zachary Burgess <br>
+#### Project Collaborators: Adam Nixon, Zachary Burgess <br>
 
 ## User Guide <br>
 
