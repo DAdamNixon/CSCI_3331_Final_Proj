@@ -6,7 +6,7 @@
 ## Notable Design Choices/Known Bugs <br>
 - There are no known bugs
 - Notable Design Choices:
-- -
+  -
 
 ## Debugging Collaborators <br>
 - None
