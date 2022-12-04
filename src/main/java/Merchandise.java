@@ -4,10 +4,10 @@ package main.java;
 public abstract class Merchandise {
 
     // Shared Fields
-    private int itemNumber;
+    int itemNumber;
     private float price;
     private int inStock;
-    //private String brandName; unused data field
+    // private String brandName; unused data field
     private String itemName;
     private boolean taxable;
 
@@ -59,7 +59,7 @@ public abstract class Merchandise {
         return this.filePath;
     }
 
-    //Sets filepath
+    // Sets filepath
     public void setFilePath(String path) {
         this.filePath = path;
     }
@@ -74,7 +74,7 @@ public abstract class Merchandise {
         this.taxable = flag;
     }
     
-    // Formats the item's properties as a String for storagr purposes
+    // Formats the item's properties as a String for storage purposes
     public abstract String inventoryString();
 
     // Returns a string representation of important attributes

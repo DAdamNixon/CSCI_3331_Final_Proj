@@ -2,9 +2,11 @@ package main.java;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -36,7 +38,11 @@ public class LoginPage extends BorderPane {
 		this.btnQuit = new Button("Quit");
 		this.setBackground(new Background(
 				new BackgroundImage(new Image(Resources.imagePath("login.png")), null, null, null, null)));
+		Alert a = new Alert(AlertType.NONE);
 		btnLogin.setOnAction(e -> {
+			a.setAlertType(AlertType.CONFIRMATION);
+			a.setContentText("Are you sure?");
+			a.showAndWait();
 			this.mainStore.loginAttempt(username.getText(), password.getText());
 		});
 
