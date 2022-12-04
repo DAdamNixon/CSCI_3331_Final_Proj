@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Set;
 
 import javafx.geometry.Insets;
@@ -76,7 +75,7 @@ public class Cart {
 	public float getSubtotal() {
 		float subtotal = 0f;
 		for (Merchandise merchandise : cart.keySet()) {
-			subtotal += merchandise.getPrice();
+			subtotal += merchandise.getPrice() * cart.get(merchandise);
 		}
 		return subtotal;
 	}
@@ -163,12 +162,13 @@ class CartView extends VBox {
 	public void updateLabels() {
 		float taxableSubtotal = 0f;
 		float untaxableSubtotal = 0f;
-
-		for (Merchandise merch : this.cart.getCart().keySet()) {
+		HashMap<Merchandise, Integer> items = this.cart.getCart();
+		for (Merchandise merch : items.keySet()) {
+			double total = merch.getPrice() * items.get(merch);
 			if (merch.taxable()) {
-				taxableSubtotal += merch.getPrice();
+				taxableSubtotal += total;
 			} else {
-				untaxableSubtotal += merch.getPrice();
+				untaxableSubtotal += total;
 			}
 		}
 
