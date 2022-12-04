@@ -9,8 +9,8 @@ public class MeatItem extends GroceryItem {
     public float weight;
 
     // Parameterized Constructor
-    public MeatItem(String item, float price, float weight, int itemNum, String path) {
-        super(item, price * weight, itemNum, path);
+    public MeatItem(String item, float price, float weight, int itemNum, int inStock, String path) {
+        super(item, price * weight, itemNum, inStock, path);
         this.weight = weight;
         this.pricePerPound = price;
     }

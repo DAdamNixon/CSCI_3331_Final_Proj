@@ -52,16 +52,17 @@ public class InventoryController {
 					String name = line[0];
 					float price = Float.parseFloat(line[1]);
 					int itemNum = Integer.valueOf(line[2]);
+					int inStock = Integer.valueOf(line[3]);
 					switch (merchandiseType) {
 						case 1:
-							inventory.put(itemNum, new GroceryItem(name, price, itemNum, line[3]));
+							inventory.put(itemNum, new GroceryItem(name, price, itemNum, inStock, line[4]));
 							break;
 						case 2:
-							inventory.put(itemNum, new AutomotiveItem(name, price, itemNum, line[3]));
+							inventory.put(itemNum, new AutomotiveItem(name, price, itemNum, inStock, line[4]));
 							break;
 						case 3:
 							inventory.put(itemNum,
-									new MeatItem(name, price, Float.parseFloat(line[3]), itemNum, line[4]));
+									new MeatItem(name, price, Float.parseFloat(line[4]), itemNum, inStock, line[5]));
 							break;
 						default:
 							break;
@@ -146,7 +147,7 @@ class StockPanel extends HBox {
 				cart.addItem(itemNumber);
 			});
 		}
-		if (inStock != 0) {
+		if (inStock == 0) {
 			addToCart.disableProperty().set(true);
 		}
 		
