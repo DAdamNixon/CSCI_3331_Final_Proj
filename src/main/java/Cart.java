@@ -277,7 +277,12 @@ class Panel extends VBox {
 		});
 		Button purchaseButton = new Button("Make Purchase");
 		purchaseButton.setOnAction(e -> {
-			cart.purchase();
+			a.setAlertType(AlertType.CONFIRMATION);
+			a.setContentText("Are you sure you want to purchase the cart?");
+			Optional<ButtonType> result = a.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				cart.purchase();
+			}
 		});
 		purchaseButton.setPrefHeight(40);
 
