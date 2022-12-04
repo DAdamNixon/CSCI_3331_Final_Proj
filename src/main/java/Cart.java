@@ -1,14 +1,19 @@
 package main.java;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Set;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -24,7 +29,7 @@ import javafx.scene.paint.Color;
 // Component Classes: CartView, Panel
 // Cart is responsible for maintaining a list of Merchandise objects, and displaying them appropriately in the CartView
 public class Cart {
-	
+
 	MainPage main;
 	InventoryController invCont;
 
@@ -47,15 +52,15 @@ public class Cart {
 
 	public void addItem(int itemNum) {
 		Merchandise item = invCont.get(itemNum);
-		if (cart.get(item) != null) {
-			if (cart.get(item) < item.getInStock()){
+		if (item != null) {
+			if (cart.get(item) != null) {
 				cart.put(item, cart.get(item) + 1);
+
+			} else {
+				cart.put(item, 1);
 			}
+			view.makeCards();
 		}
-		else {
-			cart.put(item, 1);
-		}
-		view.makeCards();
 	}
 
 	// Removes the reference to an item fron the cart list, then remakes the cards
@@ -63,8 +68,7 @@ public class Cart {
 		Merchandise item = invCont.get(itemNum);
 		if (cart.get(item) == 1) {
 			this.cart.remove(item);
-		}
-		else {
+		} else {
 			cart.put(item, cart.get(item) - 1);
 		}
 		view.makeCards();
@@ -102,7 +106,7 @@ public class Cart {
 
 	public int getNumInCart(int itemNumber) {
 		for (Merchandise item : cart.keySet()) {
-			if (item.getItemNumber() == itemNumber) {
+			if (item.itemNumber == itemNumber) {
 				return cart.get(item);
 			}
 		}
@@ -113,18 +117,18 @@ public class Cart {
 	public void purchase() {
 		writeOrder();
 		clear();
-		invCont.updateInventory(this.cart);
+		// updateInventory();
 	}
 
 	// Writes the order being made into the orders.csv file
 	private void writeOrder() {
 		File orders = new File(Resources.dataPath("orders.csv"));
-		try(FileWriter fw = new FileWriter(orders, true)){
+		try (FileWriter fw = new FileWriter(orders, true)) {
 			fw.append(String.format("%s\n", main.getUser().username));
 			for (Merchandise merchandise : cart.keySet()) {
-				fw.append(String.format("%d,%d\n", merchandise.getItemNumber(), cart.get(merchandise)));
+				fw.append(String.format("%d,%d\n", merchandise.itemNumber, cart.get(merchandise)));
 			}
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -144,7 +148,8 @@ class CartView extends VBox {
 		this.cart = cart;
 		this.container = new FlowPane();
 		this.scroll = new ScrollPane(this.container);
-		this.container.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.container
+				.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.scroll.setPrefHeight(500);
 		this.scroll.setFitToWidth(true);
 		this.scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -157,7 +162,8 @@ class CartView extends VBox {
 
 	}
 
-	// Gets the subtotal from the Cart and updates all of the cart pricing labels appropriately
+	// Gets the subtotal from the Cart and updates all of the cart pricing labels
+	// appropriately
 	public void updateLabels() {
 		float taxableSubtotal = 0f;
 		float untaxableSubtotal = 0f;
@@ -194,18 +200,18 @@ class CartView extends VBox {
 	public Label getSubtotal() {
 		return this.panel.getSubtotalValue();
 	}
-	
+
 	// Returns the tax value from the Panel
 	public Label getTax() {
 		return this.panel.getTaxValue();
 	}
-	
+
 	// Returns the total value from the Panel
 	public Label getTotal() {
 		return this.panel.getTotalValue();
 	}
 
-	// Generates cards for each item in the cart and displays them in the CartView	
+	// Generates cards for each item in the cart and displays them in the CartView
 	public void makeCards() {
 		Set<Merchandise> merchandise = this.cart.getCart().keySet();
 		this.container.getChildren().clear();
@@ -222,7 +228,9 @@ class CartView extends VBox {
 }// END CartView
 
 // Panel
-// Panel is a GUI construct that displays information related to the calculations for the total price of the cart, and contains buttons to clear the cart or make the purchase
+// Panel is a GUI construct that displays information related to the
+// calculations for the total price of the cart, and contains buttons to clear
+// the cart or make the purchase
 class Panel extends VBox {
 
 	Label subtotalValue;
@@ -256,10 +264,17 @@ class Panel extends VBox {
 
 		HBox buttonBox = new HBox();
 
+		Alert a = new Alert(AlertType.NONE);
+
 		Button clearButton = new Button("Clear Cart");
 		clearButton.setPrefHeight(40);
 		clearButton.setOnAction(e -> {
-			cart.clear();
+			a.setAlertType(AlertType.WARNING);
+			a.setContentText("Are you sure you want to clear the cart?");
+			Optional<ButtonType> result = a.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				cart.clear();
+			}
 		});
 		Button purchaseButton = new Button("Make Purchase");
 		purchaseButton.setOnAction(e -> {
