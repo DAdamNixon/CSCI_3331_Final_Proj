@@ -135,6 +135,7 @@ class StockPanel extends HBox {
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		addToCart.setAlignment(Pos.BOTTOM_RIGHT);
 		if (cart.getFlag()) {
+			stockLabel.setText("In Cart: " + cart.getNumInCart(itemNumber));
 			addToCart.setText("Remove");
 			addToCart.setOnAction(e -> {
 				cart.removeItem(itemNumber);
