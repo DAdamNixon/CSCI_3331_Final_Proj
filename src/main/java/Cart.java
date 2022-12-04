@@ -29,7 +29,7 @@ public class Cart {
 	InventoryController invCont;
 
 	private CartView view;
-	private HashMap<Merchandise, Integer> cart;
+	private HashMap<Integer, Integer> cart;
 
 	private boolean flag;
 
@@ -47,25 +47,24 @@ public class Cart {
 
 	public void addItem(int itemNum) {
 		Merchandise item = invCont.get(itemNum);
-		if (cart.get(item) != null) {
-			if (cart.get(item) < item.getInStock()){
-				cart.put(item, cart.get(item) + 1);
+		if (cart.get(itemNum) != null) {
+			if (cart.get(itemNum) < item.getInStock()){
+				cart.put(itemNum, cart.get(itemNum) + 1);
 			}
 		}
 		else {
-			cart.put(item, 1);
+			cart.put(itemNum, 1);
 		}
 		view.makeCards();
 	}
 
 	// Removes the reference to an item fron the cart list, then remakes the cards
 	public void removeItem(int itemNum) {
-		Merchandise item = invCont.get(itemNum);
-		if (cart.get(item) == 1) {
-			this.cart.remove(item);
+		if (cart.get(itemNum) == 1) {
+			this.cart.remove(itemNum);
 		}
 		else {
-			cart.put(item, cart.get(item) - 1);
+			cart.put(itemNum, cart.get(itemNum) - 1);
 		}
 		view.makeCards();
 	}
@@ -73,14 +72,14 @@ public class Cart {
 	// Returns the subtotal to be dislpayed in the Panel
 	public float getSubtotal() {
 		float subtotal = 0f;
-		for (Merchandise merchandise : cart.keySet()) {
-			subtotal += merchandise.getPrice() * cart.get(merchandise);
+		for (int itemNum : cart.keySet()) {
+			subtotal += invCont.get(itemNum).getPrice() * cart.get(itemNum);
 		}
 		return subtotal;
 	}
 
 	// Returns the list of items currently stored in the Cart
-	public HashMap<Merchandise, Integer> getCart() {
+	public HashMap<Integer, Integer> getCart() {
 		return this.cart;
 	}
 
@@ -100,20 +99,19 @@ public class Cart {
 		view.makeCards();
 	}
 
+	public HashMap<Integer, Merchandise> getInventory() {
+		return invCont.getInv();
+	}
+
 	public int getNumInCart(int itemNumber) {
-		for (Merchandise item : cart.keySet()) {
-			if (item.getItemNumber() == itemNumber) {
-				return cart.get(item);
-			}
-		}
-		return 0;
+		return cart.get(itemNumber);
 	}
 
 	// Writes the order being made into the orders.csv file, then clears the Cart
 	public void purchase() {
 		writeOrder();
-		clear();
 		invCont.updateInventory(this.cart);
+		clear();
 	}
 
 	// Writes the order being made into the orders.csv file
@@ -121,8 +119,8 @@ public class Cart {
 		File orders = new File(Resources.dataPath("orders.csv"));
 		try(FileWriter fw = new FileWriter(orders, true)){
 			fw.append(String.format("%s\n", main.getUser().username));
-			for (Merchandise merchandise : cart.keySet()) {
-				fw.append(String.format("%d,%d\n", merchandise.getItemNumber(), cart.get(merchandise)));
+			for (int itemNumber : cart.keySet()) {
+				fw.append(String.format("%d,%d\n", itemNumber, cart.get(itemNumber)));
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -161,9 +159,11 @@ class CartView extends VBox {
 	public void updateLabels() {
 		float taxableSubtotal = 0f;
 		float untaxableSubtotal = 0f;
-		HashMap<Merchandise, Integer> items = this.cart.getCart();
-		for (Merchandise merch : items.keySet()) {
-			double total = merch.getPrice() * items.get(merch);
+		HashMap<Integer, Merchandise> inventory = this.cart.getInventory();
+		HashMap<Integer, Integer> items = this.cart.getCart();
+		for (int itemNum : items.keySet()) {
+			Merchandise merch = inventory.get(itemNum);
+			double total = merch.getPrice() * items.get(itemNum);
 			if (merch.taxable()) {
 				taxableSubtotal += total;
 			} else {
@@ -207,11 +207,12 @@ class CartView extends VBox {
 
 	// Generates cards for each item in the cart and displays them in the CartView	
 	public void makeCards() {
-		Set<Merchandise> merchandise = this.cart.getCart().keySet();
+		Set<Integer> merchandise = this.cart.getCart().keySet();
+		HashMap<Integer, Merchandise> inventory = this.cart.getInventory();
 		this.container.getChildren().clear();
-		for (Merchandise merch : merchandise) {
+		for (int merch : merchandise) {
 			cart.setFlag();
-			this.add(InventoryController.card(merch, this.cart));
+			this.add(InventoryController.card(inventory.get(merch), this.cart));
 		}
 		updateLabels();
 	}

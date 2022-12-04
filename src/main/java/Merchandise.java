@@ -73,6 +73,10 @@ public abstract class Merchandise {
     public void setTaxable(boolean flag) {
         this.taxable = flag;
     }
+    
+    // Formats the item's properties as a String for storagr purposes
+    public abstract String inventoryString();
+
     // Returns a string representation of important attributes
     @Override
     public String toString() {

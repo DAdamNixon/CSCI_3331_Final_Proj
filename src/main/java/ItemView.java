@@ -31,7 +31,7 @@ public class ItemView extends FlowPane {
     }
 
     // Clears all card in the view, then makes a new set
-    private void makeCards() {
+    public void makeCards() {
         getChildren().clear();
         for (Merchandise merchandise : this.items) {
             getChildren().add(InventoryController.card(merchandise, this.cart));

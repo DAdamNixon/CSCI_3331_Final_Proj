@@ -1,8 +1,12 @@
 package main.java;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 import javafx.geometry.Insets;
@@ -29,7 +33,8 @@ public class InventoryController {
 	private static String filename = "inventory.csv";
 
 	// Hashmap to store and control inventory 
-	public HashMap<Integer, Merchandise> inventory;
+	private HashMap<Integer, Merchandise> inventory;
+	private ItemView itemView;
 
 	// Constructor
 	// initializes Hashmap and loads inventory file
@@ -76,10 +81,59 @@ public class InventoryController {
 	}// END loadInventory()
 
 	// Updates the inventory.csv file with the new inventory after a purchase is made
-	public void updateInventory(HashMap<Merchandise, Integer> cart) {
+	public void updateInventory(HashMap<Integer, Integer> cart) {
+		Queue<Merchandise> groceryQueue = new LinkedList<>();
+		Queue<Merchandise> autoQueue = new LinkedList<>();
+		Queue<Merchandise> meatQueue = new LinkedList<>();
+		for (Merchandise merch : this.values()) {
+			if (merch instanceof MeatItem) {
+				meatQueue.add(merch);
+			}
+			else if (merch instanceof AutomotiveItem) {
+				autoQueue.add(merch);
+			}
+			else if (merch instanceof GroceryItem) {
+				groceryQueue.add(merch);
+			}
+		}
+		File inventoryFile = new File(Resources.dataPath(filename));
+		try(FileWriter fw = new FileWriter(inventoryFile)) {
+			fw.append("1\n");
+			appendQueue(fw, groceryQueue, cart);
+			fw.append("2\n");
+			appendQueue(fw, autoQueue, cart);
+			fw.append("3\n");
+			appendQueue(fw, meatQueue, cart);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		loadInventory();
+		itemView.makeCards();
 
 	}
 
+	public HashMap<Integer, Merchandise> getInv() {
+		return this.inventory;
+	}
+
+	private void appendQueue(FileWriter fw, Queue<Merchandise> queue, HashMap<Integer, Integer> cart) throws IOException {
+		while (!queue.isEmpty()) {
+			Merchandise item = queue.poll();
+			int inStock = item.getInStock();
+			int inCart = 0;
+			if (cart.get((Integer)item.getItemNumber()) != null) {
+				inCart = cart.get(item.getItemNumber());
+			}
+			item.setInStock(inStock - inCart);
+			fw.append(item.inventoryString());
+
+		}
+	}
+
+	public void setItemView(ItemView view) {
+		this.itemView = view;
+	}
 	// Static method to build a card based on the merchandise parameter
 	public static Region card(Merchandise model, Cart cart) {
 		return new CardBuilder(model, cart).build();
