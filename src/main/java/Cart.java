@@ -269,7 +269,7 @@ class Panel extends VBox {
 		Button clearButton = new Button("Clear Cart");
 		clearButton.setPrefHeight(40);
 		clearButton.setOnAction(e -> {
-			a.setAlertType(AlertType.WARNING);
+			a.setAlertType(AlertType.CONFIRMATION);
 			a.setContentText("Are you sure you want to clear the cart?");
 			Optional<ButtonType> result = a.showAndWait();
 			if (result.isPresent() && result.get() == ButtonType.OK) {
