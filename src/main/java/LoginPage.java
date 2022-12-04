@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -31,7 +32,7 @@ public class LoginPage extends BorderPane {
 	LoginPage(Store main) {
 		this.mainStore = main;
 		this.username = new TextField();
-		this.password = new TextField();
+		this.password = new PasswordField();
 		this.btnLogin = new Button("Login");
 		this.btnQuit = new Button("Quit");
 		this.setBackground(new Background(

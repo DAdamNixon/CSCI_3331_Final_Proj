@@ -59,6 +59,7 @@ public class Cart {
 		} else {
 			cart.put(itemNum, 1);
 		}
+		view.makeCards();
 	}
 
 	// Removes the reference to an item fron the cart list, then remakes the cards
@@ -215,7 +216,7 @@ class CartView extends VBox {
 		HashMap<Integer, Merchandise> inventory = this.cart.getInventory();
 		this.container.getChildren().clear();
 		for (int merch : merchandise) {
-			cart.setFlag();
+			this.cart.setFlag();
 			this.add(InventoryController.card(inventory.get(merch), this.cart));
 		}
 		updateLabels();

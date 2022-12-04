@@ -4,7 +4,7 @@ package main.java;
 public abstract class Merchandise {
 
     // Shared Fields
-    int itemNumber;
+    private int itemNumber;
     private float price;
     private int inStock;
     // private String brandName; unused data field
