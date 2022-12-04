@@ -1,7 +1,5 @@
 package main.java;
 
-import java.util.Collection;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
@@ -53,7 +51,7 @@ public class MainPage extends BorderPane {
     private void setLayout() {
         this.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY)));
         InventoryController invCont = new InventoryController();
-        buildSearch(buildItemView(buildCart(invCont), invCont.values()));
+        buildSearch(buildItemView(buildCart(invCont), invCont));
     }
 
     // Builds and returns the cart to pass as a reference
@@ -64,8 +62,9 @@ public class MainPage extends BorderPane {
     }
 
     // Builds and returns the ItemView to pass as a reference
-    private ItemView buildItemView(Cart cart, Collection<Merchandise> merch) {
-        ItemView view = new ItemView(cart, merch);
+    private ItemView buildItemView(Cart cart, InventoryController iController) {
+        ItemView view = new ItemView(cart, iController.values());
+        iController.setItemView(view);
         ScrollPane scroll = new ScrollPane(view);
         scroll.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
             @Override

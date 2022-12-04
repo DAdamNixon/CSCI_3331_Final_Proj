@@ -13,4 +13,15 @@ public class AutomotiveItem extends Merchandise {
         setTaxable(true);
         setFilePath(path);
     }
+
+    @Override
+    public String inventoryString() {
+        String string = String.format("%s,%.2f,%d,%d,%s\n",
+            getItemName(),
+            getPrice(),
+            getItemNumber(),
+            getInStock(),
+            getpath());
+        return string;
+    }
 }
