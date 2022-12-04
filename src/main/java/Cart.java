@@ -47,16 +47,15 @@ public class Cart {
 
 	public void addItem(int itemNum) {
 		Merchandise item = invCont.get(itemNum);
-		if (item != null) {
-			if (cart.get(item) != null){
+		if (cart.get(item) != null) {
+			if (cart.get(item) < item.getInStock()){
 				cart.put(item, cart.get(item) + 1);
-
 			}
-			else {
-				cart.put(item, 1);
-			}
-			view.makeCards();
 		}
+		else {
+			cart.put(item, 1);
+		}
+		view.makeCards();
 	}
 
 	// Removes the reference to an item fron the cart list, then remakes the cards
@@ -103,7 +102,7 @@ public class Cart {
 
 	public int getNumInCart(int itemNumber) {
 		for (Merchandise item : cart.keySet()) {
-			if (item.itemNumber == itemNumber) {
+			if (item.getItemNumber() == itemNumber) {
 				return cart.get(item);
 			}
 		}
@@ -114,7 +113,7 @@ public class Cart {
 	public void purchase() {
 		writeOrder();
 		clear();
-		//updateInventory();
+		invCont.updateInventory(this.cart);
 	}
 
 	// Writes the order being made into the orders.csv file
@@ -123,7 +122,7 @@ public class Cart {
 		try(FileWriter fw = new FileWriter(orders, true)){
 			fw.append(String.format("%s\n", main.getUser().username));
 			for (Merchandise merchandise : cart.keySet()) {
-				fw.append(String.format("%d,%d\n", merchandise.itemNumber, cart.get(merchandise)));
+				fw.append(String.format("%d,%d\n", merchandise.getItemNumber(), cart.get(merchandise)));
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

@@ -73,6 +73,11 @@ public class InventoryController {
 			e.printStackTrace();
 		}
 
+	}// END loadInventory()
+
+	// Updates the inventory.csv file with the new inventory after a purchase is made
+	public void updateInventory(HashMap<Merchandise, Integer> cart) {
+
 	}
 
 	// Static method to build a card based on the merchandise parameter
@@ -116,7 +121,7 @@ class CardBuilder implements Builder<Region> {
                 new Label(model.getItemName()),
                 new Label(String.format("$ %.2f", model.getPrice())),
                 new IconView(Resources.imagePath(model.getpath())),
-                new StockPanel(model.inStock, model.itemNumber, this.cart));
+                new StockPanel(model.getInStock(), model.getItemNumber(), this.cart));
         card.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), new Insets(10))));
         return card;
     }

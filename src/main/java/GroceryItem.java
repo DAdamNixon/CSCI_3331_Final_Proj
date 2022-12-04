@@ -17,11 +17,11 @@ public class GroceryItem extends Merchandise {
 
     // Parameterized Constructor
     public GroceryItem(String item, float price, int itemNum, int inStock, String path) {
-        this.itemName = item;
-        this.price = price;
-        this.itemNumber = itemNum;
-        this.inStock = inStock;
-        this.filePath = path;
-        this.taxable = false;
+        setItemName(item);
+        setPrice(price);
+        setItemNumber(itemNum);
+        setInStock(inStock);
+        setTaxable(false);
+        setFilePath(path);
     }
 }
