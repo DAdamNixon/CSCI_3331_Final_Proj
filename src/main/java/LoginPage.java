@@ -51,11 +51,10 @@ public class LoginPage extends BorderPane {
 	private void setLoginCard() {
 		VBox container = new VBox();
 		Region spacer = new Region();
-		spacer.setPrefHeight(140);
+		spacer.setPrefHeight(150);
 		GridPane gp = new GridPane();
 		container.setBackground(
 				new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), new Insets(260, 100, 100, 100))));
-		GridPane.setMargin(gp, new Insets(80, 0, 0, 0));
 		HBox buttonBox = new HBox();
 		buttonBox.getChildren().addAll(btnLogin, btnQuit);
 		gp.add(new Label("Login"), 1, 0);

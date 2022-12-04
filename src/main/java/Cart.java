@@ -2,7 +2,9 @@ package main.java;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -28,14 +30,14 @@ public class Cart {
 	InventoryController invCont;
 
 	private CartView view;
-	private LinkedList<Merchandise> cart;
+	private HashMap<Merchandise, Integer> cart;
 
 	private boolean flag;
 
 	public Cart(MainPage mainPage, InventoryController iController) {
 		this.main = mainPage;
 		this.invCont = iController;
-		this.cart = new LinkedList<>();
+		this.cart = new HashMap<>();
 		this.view = new CartView(this);
 		this.flag = false;
 	}
@@ -47,28 +49,40 @@ public class Cart {
 	public void addItem(int itemNum) {
 		Merchandise item = invCont.get(itemNum);
 		if (item != null) {
-			cart.add(item);
+			if (cart.get(item) != null){
+				cart.put(item, cart.get(item) + 1);
+
+			}
+			else {
+				cart.put(item, 1);
+			}
 			view.makeCards();
 		}
 	}
 
 	// Removes the reference to an item fron the cart list, then remakes the cards
 	public void removeItem(int itemNum) {
-		this.cart.remove(invCont.get(itemNum));
+		Merchandise item = invCont.get(itemNum);
+		if (cart.get(item) == 1) {
+			this.cart.remove(item);
+		}
+		else {
+			cart.put(item, cart.get(item) - 1);
+		}
 		view.makeCards();
 	}
 
 	// Returns the subtotal to be dislpayed in the Panel
 	public float getSubtotal() {
 		float subtotal = 0f;
-		for (Merchandise merchandise : cart) {
+		for (Merchandise merchandise : cart.keySet()) {
 			subtotal += merchandise.getPrice();
 		}
 		return subtotal;
 	}
 
 	// Returns the list of items currently stored in the Cart
-	public LinkedList<Merchandise> getCart() {
+	public HashMap<Merchandise, Integer> getCart() {
 		return this.cart;
 	}
 
@@ -88,6 +102,15 @@ public class Cart {
 		view.makeCards();
 	}
 
+	public int getNumInCart(int itemNumber) {
+		for (Merchandise item : cart.keySet()) {
+			if (item.itemNumber == itemNumber) {
+				return cart.get(item);
+			}
+		}
+		return 0;
+	}
+
 	// Writes the order being made into the orders.csv file, then clears the Cart
 	public void purchase() {
 		writeOrder();
@@ -100,8 +123,8 @@ public class Cart {
 		File orders = new File(Resources.dataPath("orders.csv"));
 		try(FileWriter fw = new FileWriter(orders, true)){
 			fw.append(String.format("%s\n", main.getUser().username));
-			for (Merchandise merchandise : cart) {
-				fw.append(String.format("%d\n", merchandise.itemNumber));
+			for (Merchandise merchandise : cart.keySet()) {
+				fw.append(String.format("%d,%d\n", merchandise.itemNumber, cart.get(merchandise)));
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -141,7 +164,7 @@ class CartView extends VBox {
 		float taxableSubtotal = 0f;
 		float untaxableSubtotal = 0f;
 
-		for (Merchandise merch : this.cart.getCart()) {
+		for (Merchandise merch : this.cart.getCart().keySet()) {
 			if (merch.taxable()) {
 				taxableSubtotal += merch.getPrice();
 			} else {
@@ -185,7 +208,7 @@ class CartView extends VBox {
 
 	// Generates cards for each item in the cart and displays them in the CartView	
 	public void makeCards() {
-		LinkedList<Merchandise> merchandise = this.cart.getCart();
+		Set<Merchandise> merchandise = this.cart.getCart().keySet();
 		this.container.getChildren().clear();
 		for (Merchandise merch : merchandise) {
 			cart.setFlag();
